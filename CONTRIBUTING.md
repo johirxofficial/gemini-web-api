@@ -1,6 +1,7 @@
 # Contributing
 
-Thanks for helping improve Gemini Web API.
+Thanks for helping improve Gemini Web API. The project is built and maintained
+by [johirxofficial](https://github.com/johirxofficial).
 
 ## Before you start
 

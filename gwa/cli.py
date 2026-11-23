@@ -70,6 +70,7 @@ def _banner(cfg) -> str:
         [
             "",
             "  Gemini Web API  v" + __version__,
+            "  by johirxofficial",
             "  ─────────────────────────────────────────────────────",
             f"  Docs      {docs}",
             f"  Health    {docs}health",

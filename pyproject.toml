@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [{ name = "Gemini Web API contributors" }]
+authors = [{ name = "johirxofficial" }]
 keywords = ["gemini", "openai", "api", "browser-automation", "cdp", "chrome"]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -30,7 +30,9 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/johirxofficial/gemini-web-api"
+Source = "https://github.com/johirxofficial/gemini-web-api"
 Issues = "https://github.com/johirxofficial/gemini-web-api/issues"
+Author = "https://github.com/johirxofficial"
 
 [project.scripts]
 gemini-web-api = "gwa.cli:main"

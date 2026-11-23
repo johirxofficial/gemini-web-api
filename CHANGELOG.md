@@ -26,6 +26,11 @@ All notable changes are documented here.
 - User-facing messages, comments, and documentation are in English.
 - Version bumped to 1.1.0.
 
+### Credits
+
+- Developer and maintainer: **johirxofficial**
+  (<https://github.com/johirxofficial>)
+
 ### Fixed
 
 - Boolean environment overrides (`GWA_LOG_PROMPTS`, `GWA_REUSE_TAB`) now parse

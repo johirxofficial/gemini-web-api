@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="johirxofficial">
 <title>Gemini Web API — Gemini in your Chrome, now as an API</title>
 <style>
   :root{
@@ -377,11 +378,12 @@ Gemini web can be slow — 10–60 seconds is normal.</span></pre>
   </section>
 
   <footer>
-    <div>Gemini Web API · local-first · <span id="footer-version">v1.0.0</span></div>
+    <div>Gemini Web API · local-first · <span id="footer-version">v1.1.0</span> · built by <a href="https://github.com/johirxofficial" target="_blank" rel="noreferrer">johirxofficial</a></div>
     <div class="footer-links">
       <a href="/health" target="_blank" rel="noreferrer">Health</a>
       <a href="/openapi.json" target="_blank" rel="noreferrer">OpenAPI</a>
       <a href="#playground">Playground</a>
+      <a href="https://github.com/johirxofficial/gemini-web-api" target="_blank" rel="noreferrer">GitHub</a>
     </div>
   </footer>
 </main>
@@ -460,7 +462,7 @@ Gemini web can be slow — 10–60 seconds is normal.</span></pre>
       $("s-model").textContent = h.model || "gemini-web";
       $("s-uptime").textContent = fmtSeconds(h.uptime_seconds || 0);
       $("s-login").textContent = "in browser";
-      $("footer-version").textContent = "v" + (h.version || "1.0.0");
+      $("footer-version").textContent = "v" + (h.version || "1.1.0");
     } catch (e) {
       setPill(false, "API offline");
       $("s-api").textContent = "offline";

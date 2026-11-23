@@ -8,6 +8,8 @@
 
 Gemini Web API drives a real, logged-in Gemini web session over the Chrome DevTools Protocol (CDP). It opens **one Gemini tab and reuses it for every request**, so your API calls stay in the same continuous chat instead of creating a new chat each time.
 
+**Developer:** [johirxofficial](https://github.com/johirxofficial) · [GitHub repository](https://github.com/johirxofficial/gemini-web-api)
+
 > This is an unofficial browser-automation project. It is not affiliated with Google and is not the official Gemini API.
 
 ---
@@ -445,6 +447,15 @@ Logs:
 - Prompt logging is off by default (`api.log_prompts: false`).
 - The API key is optional and intended for local use.
 - Do not commit `config.yaml`, browser profiles, logs, or screenshots.
+
+---
+
+## Developer
+
+Built and maintained by **[johirxofficial](https://github.com/johirxofficial)**.
+
+- GitHub: <https://github.com/johirxofficial>
+- Project: <https://github.com/johirxofficial/gemini-web-api>
 
 ---
 
