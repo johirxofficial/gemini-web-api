@@ -7,7 +7,12 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from gwa.browser import find_gemini_tab, gemini_url_prefix, is_gemini_url
+from gwa.browser import (
+    find_gemini_tab,
+    find_gemini_tabs,
+    gemini_url_prefix,
+    is_gemini_url,
+)
 from gwa.config import Config, load
 from gwa.gemini import clean_answer
 from gwa.server import (
@@ -34,9 +39,26 @@ class UrlHelperTests(unittest.TestCase):
         self.assertTrue(
             is_gemini_url("https://gemini.google.com/app/2dd0af10478a59c8")
         )
+        self.assertTrue(
+            is_gemini_url(
+                "https://gemini.google.com/app/2dd0af10478a59c8?usp=sharing"
+            )
+        )
         self.assertFalse(is_gemini_url("https://gemini.google.com.evil.test/app"))
         self.assertFalse(is_gemini_url("https://example.com/app"))
         self.assertFalse(is_gemini_url(""))
+
+    def test_is_gemini_url_exact_conversation_prefix(self):
+        prefix = "https://gemini.google.com/app/2dd0af10478a59c8"
+        self.assertTrue(
+            is_gemini_url(
+                "https://gemini.google.com/app/2dd0af10478a59c8?usp=sharing",
+                prefix,
+            )
+        )
+        self.assertFalse(
+            is_gemini_url("https://gemini.google.com/app/other-conversation", prefix)
+        )
 
     @mock.patch("gwa.browser.list_targets")
     def test_find_gemini_tab_prefers_conversation(self, list_targets):
@@ -69,6 +91,8 @@ class UrlHelperTests(unittest.TestCase):
         found = find_gemini_tab("http://127.0.0.1:9222")
         self.assertIsNotNone(found)
         self.assertEqual(found["id"], "chat")
+        tabs = find_gemini_tabs("http://127.0.0.1:9222")
+        self.assertEqual([tab["id"] for tab in tabs], ["chat", "blank"])
 
     @mock.patch("gwa.browser.list_targets", return_value=[])
     def test_find_gemini_tab_returns_none(self, _list_targets):

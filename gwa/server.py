@@ -33,7 +33,7 @@ from .browser import (
     cdp_up,
     close_cdp_tab,
     ensure_browser,
-    find_gemini_tab,
+    find_gemini_tabs,
     gemini_url_prefix,
     is_gemini_url,
     list_targets,
@@ -257,17 +257,24 @@ class Worker:
             return self._tab  # type: ignore[return-value]
 
         self._release_tab()
-        target = find_gemini_tab(cdp, prefix=self._tab_prefix)
-        if target is None:
-            log.info(
-                "No open Gemini tab found; opening one. It will be reused from now on."
-            )
-            target = open_cdp_tab(
-                cdp,
-                self._gemini_url,
-                wait_seconds=float(self.cfg.get("gemini.ready_seconds", 20)) * 4
-                + 30,
-            )
+        for target in find_gemini_tabs(cdp, prefix=self._tab_prefix):
+            try:
+                return self._connect_target(cdp, target)
+            except Exception as exc:  # noqa: BLE001
+                log.warning(
+                    "Could not attach to Gemini tab %s: %s",
+                    target.get("id"),
+                    exc,
+                )
+
+        log.info(
+            "No usable Gemini tab found; opening one. It will be reused from now on."
+        )
+        target = open_cdp_tab(
+            cdp,
+            self._gemini_url,
+            wait_seconds=float(self.cfg.get("gemini.ready_seconds", 20)) * 4 + 30,
+        )
         return self._connect_target(cdp, target)
 
     def _run_fresh(self, cdp: str, prompt: str, timeout: float) -> str:

@@ -167,19 +167,36 @@ def gemini_url_prefix(url: str) -> str:
 
 
 def is_gemini_url(url: str, prefix: str = "https://gemini.google.com") -> bool:
+    """Return True when *url* belongs to the configured Gemini prefix.
+
+    Query strings and fragments are ignored, so an exact conversation prefix
+    still matches URLs such as ``.../app/<id>?usp=sharing``.
+    """
     value = (url or "").strip()
     base = (prefix or "").strip().rstrip("/")
     if not value or not base:
         return False
-    return value == base or value.startswith(base + "/")
+    parsed_url = urllib.parse.urlparse(value)
+    parsed_base = urllib.parse.urlparse(base)
+    if not parsed_url.scheme or not parsed_url.netloc:
+        return False
+    if parsed_base.scheme and parsed_url.scheme != parsed_base.scheme:
+        return False
+    if parsed_base.netloc and parsed_url.netloc != parsed_base.netloc:
+        return False
+    base_path = parsed_base.path.rstrip("/")
+    if base_path in ("", "/"):
+        return True
+    value_path = parsed_url.path.rstrip("/")
+    return value_path == base_path or value_path.startswith(base_path + "/")
 
 
-def find_gemini_tab(
+def find_gemini_tabs(
     cdp_url: str,
     prefix: str = "https://gemini.google.com",
     timeout: float = 5.0,
-) -> dict | None:
-    """Find an already-open Gemini page tab.
+) -> list[dict]:
+    """Return open Gemini page tabs, best candidate first.
 
     A conversation URL (``/app/<id>``) is preferred over a blank ``/app`` tab,
     so the API continues in the user's existing chat instead of starting a new
@@ -191,8 +208,6 @@ def find_gemini_tab(
         if item.get("type") == "page"
         and is_gemini_url(str(item.get("url") or ""), prefix)
     ]
-    if not candidates:
-        return None
 
     def score(item: dict) -> tuple[int, int]:
         url = str(item.get("url") or "")
@@ -202,7 +217,17 @@ def find_gemini_tab(
         return (0 if conversation else 1, 0 if blank_app else 1)
 
     candidates.sort(key=score)
-    return candidates[0]
+    return candidates
+
+
+def find_gemini_tab(
+    cdp_url: str,
+    prefix: str = "https://gemini.google.com",
+    timeout: float = 5.0,
+) -> dict | None:
+    """Find the best already-open Gemini page tab, or return ``None``."""
+    tabs = find_gemini_tabs(cdp_url, prefix=prefix, timeout=timeout)
+    return tabs[0] if tabs else None
 
 
 def activate_cdp_tab(cdp_url: str, tab_id: str) -> None:
