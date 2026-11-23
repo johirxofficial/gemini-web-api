@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gemini-web-api"
+version = "1.1.0"
+description = "OpenAI-compatible local API backed by a persistent, logged-in Gemini web tab"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Gemini Web API contributors" }]
+keywords = ["gemini", "openai", "api", "browser-automation", "cdp", "chrome"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = [
+  "websocket-client>=1.8",
+  "PyYAML>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/johirxofficial/gemini-web-api"
+Issues = "https://github.com/johirxofficial/gemini-web-api/issues"
+
+[project.scripts]
+gemini-web-api = "gwa.cli:main"
+
+[tool.setuptools]
+packages = ["gwa"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+# Best-effort cleanup and a cross-platform advisory lock use bare handlers.
+ignore = ["S110", "SIM115", "TRY004"]

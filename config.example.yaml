@@ -1,0 +1,94 @@
+# ===========================================================================
+#  Gemini Web API - configuration
+#  Copy this file to config.yaml and edit as needed.
+# ===========================================================================
+
+browser:
+  # chrome-beta | chrome | chromium | edge | brave
+  engine: chrome-beta
+
+  # Leave empty to auto-detect. Set a full path if detection fails:
+  # Windows: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  # macOS:   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  # Linux:   "/usr/bin/google-chrome"
+  binary: ""
+
+  # If a Chrome DevTools endpoint is already running here (for example your
+  # everyday browser), the API reuses it and its existing Google login.
+  # Set to "" to always use the dedicated browser below.
+  prefer_cdp: "http://127.0.0.1:9222"
+
+  # Dedicated browser used when prefer_cdp is not available.
+  cdp_url: "http://127.0.0.1:9333"
+
+  # Leave empty for the platform default:
+  #   Windows: %LOCALAPPDATA%\gemini-web-api\<engine>-profile
+  #   macOS:   ~/Library/Application Support/gemini-web-api/<engine>-profile
+  #   Linux:   ~/.gemini-web-api/<engine>-profile
+  profile_dir: ""
+
+  auto_launch: true
+  window_size: "1440,900"
+  connect_timeout: 30
+
+api:
+  host: "127.0.0.1"
+  port: 8787
+
+  # Leave empty for no authentication (safe for localhost only).
+  # When set, every /v1/* and /api/* request needs:
+  #   Authorization: Bearer <key>
+  # or:
+  #   x-api-key: <key>
+  api_key: ""
+
+  model_name: "gemini-web"
+
+  # Maximum time to wait for one answer (seconds).
+  timeout: 180
+
+  # Maximum number of requests waiting in the queue.
+  max_queue: 8
+
+  # Requests per minute (0 = unlimited).
+  rate_limit_per_min: 30
+
+  max_prompt_chars: 60000
+
+  # Simulated streaming: characters per SSE chunk and delay between chunks.
+  stream_chunk: 28
+  stream_delay_ms: 12
+
+  # Write prompts to the log (privacy).
+  log_prompts: false
+
+  # Leave empty to share ~/.fb-agent/locks when it exists, otherwise use
+  # ~/.gemini-web-api/locks.
+  lock_dir: ""
+
+gemini:
+  url: "https://gemini.google.com/app"
+
+  # Reuse one Gemini tab for every request. This keeps one continuous chat
+  # instead of opening a new chat each time. Set false for legacy behavior.
+  reuse_tab: true
+
+  # Any open tab whose URL starts with this prefix is considered a Gemini tab.
+  tab_url_prefix: "https://gemini.google.com"
+
+  # Clear any leftover draft in the composer before inserting a prompt.
+  clear_composer: true
+
+  # Wait up to this many seconds if Gemini is still generating an answer.
+  idle_seconds: 120
+
+  # Update these selectors if the Gemini UI changes.
+  prompt_selectors:
+    - 'rich-textarea div[contenteditable="true"]'
+    - 'div[contenteditable="true"][role="textbox"]'
+    - 'div.ql-editor[contenteditable="true"]'
+
+  response_selector: "message-content"
+
+  # How long to wait for the composer on a newly opened tab (seconds).
+  ready_seconds: 20

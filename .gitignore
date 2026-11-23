@@ -1,0 +1,29 @@
+# Local setup
+.venv/
+.venv-linux/
+.venv-win/
+config.yaml
+*.log
+
+# Runtime data
+logs/
+data/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Screenshots and temp files
+screenshots/
+*.png
+!web/*.png
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
