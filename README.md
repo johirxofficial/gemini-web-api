@@ -1,5 +1,9 @@
 # Gemini Web API
 
+[![CI](https://github.com/johirxofficial/gemini-web-api/actions/workflows/ci.yml/badge.svg)](https://github.com/johirxofficial/gemini-web-api/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+
 **Turn the Gemini web app in your own Chrome into an OpenAI-compatible local API — no official Gemini API key required.**
 
 Gemini Web API drives a real, logged-in Gemini web session over the Chrome DevTools Protocol (CDP). It opens **one Gemini tab and reuses it for every request**, so your API calls stay in the same continuous chat instead of creating a new chat each time.

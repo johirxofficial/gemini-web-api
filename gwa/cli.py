@@ -112,7 +112,6 @@ def cmd_serve(args, cfg) -> int:
     except KeyboardInterrupt:
         print("\nShutting down…", flush=True)
     finally:
-        service.stop()
         httpd.server_close()
     return 0
 
