@@ -244,6 +244,8 @@ Send a normal `messages` array. System, user, and assistant turns are flattened 
   "ok": true,
   "service": "gemini-web-api",
   "version": "1.1.0",
+  "developer": "johirxofficial",
+  "repository": "https://github.com/johirxofficial/gemini-web-api",
   "model": "gemini-web",
   "browser": {
     "mode": "shared",

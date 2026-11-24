@@ -25,7 +25,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 from urllib.parse import urlparse
 
-from . import __version__
+from . import __author__, __repo__, __version__
 from .browser import (
     ElementMissing,
     LoginRequired,
@@ -478,6 +478,8 @@ class Service:
             "ok": True,
             "service": "gemini-web-api",
             "version": __version__,
+            "developer": __author__,
+            "repository": __repo__,
             "model": self.cfg.model,
             "uptime_seconds": round(time.time() - self.started, 1),
             "requests": self._requests,
@@ -502,7 +504,8 @@ class Service:
                     "id": self.cfg.model,
                     "object": "model",
                     "created": 0,
-                    "owned_by": "google-web",
+                    "owned_by": __author__,
+                    "developer": __author__,
                     "permission": [],
                     "root": self.cfg.model,
                     "parent": None,
@@ -521,6 +524,11 @@ class Service:
                     "OpenAI-compatible local API backed by a logged-in Gemini web "
                     "session. Answers are produced by browser automation."
                 ),
+                "contact": {
+                    "name": __author__,
+                    "url": "https://github.com/johirxofficial",
+                },
+                "x-developer": __author__,
             },
             "servers": [{"url": base}],
             "paths": {
